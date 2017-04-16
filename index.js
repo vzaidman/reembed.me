@@ -6,7 +6,7 @@ app.set('port', (process.env.PORT || 5000))
 app.use('/images', express.static(__dirname + '/public/images'))
 
 app.get('/favicon.ico', function(req, res){
-  res.sendfile('favicon.ico', {root: __dirname});
+  res.sendfile('favicon.ico', {root: __dirname + '/public'});
 })
 
 app.get('*', function(req, res){
