@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "description": "A Website for Link Reembeding",
   "main": "index.js",
-  "engines" : {
-    "node" : ">=7.8.0"
+  "engines": {
+    "node": ">=7.8.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,9 @@
   "homepage": "https://github.com/welldone-software/reembed.me#readme",
   "dependencies": {
     "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "cross-env": "^4.0.0",
+    "rifraf": "^2.0.3"
   }
 }
