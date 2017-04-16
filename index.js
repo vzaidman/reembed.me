@@ -6,11 +6,15 @@ app.set('port', (process.env.PORT || 5000))
 app.use('/images', express.static(__dirname + '/public/images'))
 
 app.get('/favicon.ico', function(req, res){
-  res.sendfile('favicon.ico', {root: __dirname + '/public'});
+  res.sendFile('favicon.ico', {root: __dirname + '/public'});
+})
+
+app.get('/redirect/*', function(req, res){
+  res.sendFile('redirect.html', {root: __dirname + '/public'});
 })
 
 app.get('*', function(req, res){
-  res.sendfile('index.html', {root: __dirname + '/public'});
+  res.sendFile('index.html', {root: __dirname + '/public'});
 })
 
 app.listen(app.get('port'), function () {
