@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "cd client && npm install && npm run build"
+    "build_client": "rimraf ./public/client && cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,9 @@
     "express": "^4.15.2"
   },
   "devDependencies": {
+    "cpx": "^1.5.0",
     "cross-env": "^4.0.0",
-    "rifraf": "^2.0.3"
+    "rifraf": "^2.0.3",
+    "rimraf": "^2.6.1"
   }
 }
