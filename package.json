@@ -1,0 +1,29 @@
+{
+  "name": "reembed.me",
+  "version": "0.0.1",
+  "description": "A Website for Link Reembeding",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/welldone-software/reembed.me.git"
+  },
+  "keywords": [
+    "reembed",
+    "re-embed",
+    "embed",
+    "embeding",
+    "re-embeding"
+  ],
+  "author": "Vitalik Zaidman (vzaidman@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/welldone-software/reembed.me/issues"
+  },
+  "homepage": "https://github.com/welldone-software/reembed.me#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
