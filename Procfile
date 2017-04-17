@@ -1,1 +1,1 @@
-web: node index.js
+web: npm run build_client && npm start
