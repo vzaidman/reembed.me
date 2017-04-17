@@ -3,7 +3,7 @@ import './App.scss'
 
 const App = () => (
   <div className="app">
-    zap
+    <a href="/redirect/">Redirect Link</a>
   </div>
 )
 
