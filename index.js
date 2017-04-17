@@ -13,7 +13,7 @@ app.get('/redirect/*', function(req, res){
 
 app.use('/images', express.static(__dirname + '/public/images'))
 
-app.use('*', express.static(__dirname + '/public/client'))
+app.use('/', express.static(__dirname + '/public/client'))
 
 app.listen(app.get('port'), function () {
   console.log('Example app listening on port', app.get('port'))
