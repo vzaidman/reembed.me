@@ -1,10 +1,17 @@
 import {combineReducers} from 'redux'
 import * as types from 'actions/types'
 
-const main = (state = false, action) => {
+const defaultState = {
+  toggled: false
+}
+
+const main = (state = defaultState, action) => {
   switch (action.type) {
     case types.TOGGLE:
-      return !state
+      return {
+        ...state,
+        toggled: !state.toggled
+      }
     default:
       return state
   }
