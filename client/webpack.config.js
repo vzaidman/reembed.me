@@ -10,12 +10,13 @@ const isDevelopment = NODE_ENV === 'development'
 const config = {
   context: __dirname,
   entry: {
-    app: './src/index.js',
+    app: [
+      'react-hot-loader/patch',
+      './src/index.js'
+    ],
     vendor: [
       'babel-polyfill',
-      'react-hot-loader',
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server'
+      'webpack-dev-server/client?http://localhost:8080'
     ]
   },
   output: {
