@@ -12,18 +12,7 @@ import ImageChooser from './ImageChooser'
 import './MainPage.scss'
 
 const enhance = compose(
-  withPropsOnChange(
-    ['actions'],
-    props => {
-      const {actions: {updateEmbedFields, changeUrlToFetch}} = props
-      return {
-        changeTitle: e => updateEmbedFields({title: e.target.value}),
-        changeDescription: e => updateEmbedFields({description: e.target.value}),
-        changeUrl: e => updateEmbedFields({url: e.target.value}),
-        changeUrlToFetch: e => changeUrlToFetch(e.target.value)
-      }
-    }
-  ),
+  pure,
   withPropsOnChange(
     ['embedFields'],
     props => {
@@ -33,14 +22,27 @@ const enhance = compose(
       }
     }
   ),
-  pure
+  withPropsOnChange(
+    ['actions'],
+    props => {
+      const {actions: {updateEmbedFields, changeUrlToFetch}} = props
+      return {
+        changeUrlToFetch: e => changeUrlToFetch(e.target.value),
+        changeTitle: e => updateEmbedFields({title: e.target.value}),
+        changeDescription: e => updateEmbedFields({description: e.target.value}),
+        changeUrl: e => updateEmbedFields({url: e.target.value}),
+        changeUseUrl: e => updateEmbedFields({useUrl: e.target.checked})
+      }
+    }
+  )
 )
 
 const MainPage = enhance(({
     urlToFetch, changeUrlToFetch,
     title, changeTitle,
     description, changeDescription,
-    url, changeUrl
+    url, changeUrl,
+    useUrl, changeUseUrl
   }) => (
   <div className="main-page">
 
@@ -66,8 +68,13 @@ const MainPage = enhance(({
       </div>
 
       <div className="input-group">
+        <label>Use URL</label>
+        <input type="checkbox" onChange={changeUseUrl} value={useUrl}/>
+      </div>
+
+      <div className="input-group">
         <label>URL</label>
-        <input onChange={changeUrl} value={url}/>
+        <input onChange={changeUrl} value={url} disabled={!useUrl}/>
       </div>
 
       <div className="input-group">

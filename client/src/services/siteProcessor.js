@@ -2,9 +2,10 @@ export function calculateEmbeddedFields(){
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
-        title: 'fetched title',
-        description: 'fetched description',
-        url: 'fetched url'
+        title: 'My Own Title',
+        description: 'My Own Description',
+        useUrl: false,
+        url: 'http://www.google.com'
       })
     }, 1000)
   })

@@ -6,7 +6,8 @@ const defaultState = {
   embedFields: {
     title: '',
     description: '',
-    url: ''
+    url: '',
+    useUrl: false
   }
 }
 
