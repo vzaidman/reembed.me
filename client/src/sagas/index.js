@@ -1,12 +1,13 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
-import {debounce} from 'lodash'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 
 import * as actions from 'actions'
-import {fetchWebsite} from 'services/fetcher'
-import {calculateEmbeddedFields} from 'services/siteProcessor'
 
-function* getUrlEmbedInfo(action) {
-  const {payload: url} = action
+import {calculateEmbeddedFields} from 'services/siteProcessor'
+import {fetchWebsite, requestReembed} from 'services/api'
+
+function* fetchUrl() {
+  const state = yield select()
+  const {urlToFetch: url} = state.main
   console.log('saga started')
   try {
     console.log('fetchWebsite')
@@ -22,8 +23,22 @@ function* getUrlEmbedInfo(action) {
   }
 }
 
+function* reembed(){
+  try {
+    const state = yield select()
+    const {reembedFields} = state.main
+
+    const reembeddedUrl = yield call(requestReembed, reembedFields)
+    yield put(actions.updateReembeddedUrl(reembeddedUrl))
+  }
+  catch(e){
+    yield put(actions.reembedFailed(e.message))
+  }
+}
+
 function* mySaga() {
-  yield takeLatest(actions.changeUrlToFetch.TYPE, getUrlEmbedInfo)
+  yield takeLatest(actions.fetchUrl.TYPE, fetchUrl)
+  yield takeLatest(actions.reembed.TYPE, reembed)
 }
 
 export default mySaga

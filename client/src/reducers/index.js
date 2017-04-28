@@ -3,12 +3,13 @@ import * as actions from 'actions'
 
 const defaultState = {
   urlToFetch: '',
-  embedFields: {
+  reembedFields: {
     title: '',
     description: '',
     url: '',
     useUrl: false
-  }
+  },
+  reembeddedUrl: ''
 }
 
 const main = (state = defaultState, action) => {
@@ -23,21 +24,29 @@ const main = (state = defaultState, action) => {
     }
 
     case actions.changeEmbedFields.TYPE: {
-      const embedFields = action.payload
+      const reembedFields = action.payload
       return {
         ...state,
-        embedFields
+        reembedFields
       }
     }
 
     case actions.updateEmbedFields.TYPE: {
-      const embedFields = {
-        ...state.embedFields,
+      const reembedFields = {
+        ...state.reembedFields,
         ...action.payload
       }
       return {
         ...state,
-        embedFields
+        reembedFields
+      }
+    }
+
+    case actions.updateReembeddedUrl.TYPE: {
+      const reembeddedUrl = action.payload
+      return {
+        ...state,
+        reembeddedUrl
       }
     }
 

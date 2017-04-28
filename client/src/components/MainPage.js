@@ -13,36 +13,33 @@ import './MainPage.scss'
 
 const enhance = compose(
   pure,
-  withPropsOnChange(
-    ['embedFields'],
-    props => {
-      const {embedFields} = props
-      return {
-        ...embedFields
-      }
+  withPropsOnChange( ['reembedFields'], props => {
+    const {reembedFields} = props
+    return {
+      ...reembedFields
     }
-  ),
-  withPropsOnChange(
-    ['actions'],
-    props => {
-      const {actions: {updateEmbedFields, changeUrlToFetch}} = props
-      return {
-        changeUrlToFetch: e => changeUrlToFetch(e.target.value),
-        changeTitle: e => updateEmbedFields({title: e.target.value}),
-        changeDescription: e => updateEmbedFields({description: e.target.value}),
-        changeUrl: e => updateEmbedFields({url: e.target.value}),
-        changeUseUrl: e => updateEmbedFields({useUrl: e.target.checked})
-      }
+  }),
+  withPropsOnChange( ['actions'], props => {
+    const {actions: {changeUrlToFetch, fetchUrl, updateEmbedFields, reembed}} = props
+    return {
+      changeUrlToFetch: e => changeUrlToFetch(e.target.value),
+      fetchUrl,
+      changeTitle: e => updateEmbedFields({title: e.target.value}),
+      changeDescription: e => updateEmbedFields({description: e.target.value}),
+      changeUrl: e => updateEmbedFields({url: e.target.value}),
+      changeUseUrl: e => updateEmbedFields({useUrl: e.target.checked}),
+      reembed
     }
-  )
+  })
 )
-
 const MainPage = enhance(({
     urlToFetch, changeUrlToFetch,
+    fetchUrl,
     title, changeTitle,
     description, changeDescription,
     url, changeUrl,
-    useUrl, changeUseUrl
+    useUrl, changeUseUrl,
+    reembeddedUrl, reembed
   }) => (
   <div className="main-page">
 
@@ -53,6 +50,8 @@ const MainPage = enhance(({
       <label>Embed URL:</label>
       <input onChange={changeUrlToFetch} value={urlToFetch}/>
     </div>
+
+    <button onClick={fetchUrl}>Get Embedding</button>
 
     <h2>Create an Embedded URL</h2>
     <div className="embed-info">
@@ -82,11 +81,12 @@ const MainPage = enhance(({
         <ImageChooser/>
       </div>
 
-      <button>embed.me!</button>
+      <button onClick={reembed}>reembed.me!</button>
     </div>
 
-    <span className="temp">will appear only after a successful reembedding:</span>
-    <h2>Your re-embedded url is: <a href="#">http://embed.me/ag7j</a></h2>
+    {reembeddedUrl && (
+      <h2>Your re-embedded url is: <a href="#">{reembeddedUrl}</a></h2>
+    )}
 
   </div>
 ))
