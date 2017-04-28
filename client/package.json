@@ -1,7 +1,7 @@
 {
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --colors --content-base dist",
+    "start": "webpack-dev-server --colors --content-base dist --port 5555",
     "build": "webpack --progress --profile --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +11,8 @@
     "react-redux": "^5.0.1",
     "recompose": "^0.23.1",
     "redux": "^3.6.0",
-    "redux-logger": "^2.7.4"
+    "redux-logger": "^2.7.4",
+    "redux-toolbelt": "^1.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

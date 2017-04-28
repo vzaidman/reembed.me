@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import * as types from 'actions/types'
+import * as actions from 'actions'
 
 const defaultState = {
   toggled: false
@@ -7,7 +7,7 @@ const defaultState = {
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
-    case types.TOGGLE:
+    case actions.toggle.TYPE:
       return {
         ...state,
         toggled: !state.toggled

@@ -1,7 +1,3 @@
-import * as types from './types'
+import {makeActionCreator} from 'redux-toolbelt'
 
-export const toggle = () => {
-  return {
-    type: types.TOGGLE
-  }
-}
+export const toggle = makeActionCreator('TOGGLE')
