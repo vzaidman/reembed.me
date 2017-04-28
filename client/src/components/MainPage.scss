@@ -6,10 +6,33 @@
   border-top: none;
   border-bottom: none;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .fetch-url{
   input{
     width: 500px;
   }
+}
+
+.embed-info{
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  .input-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    input{
+      width: 200px;
+    }
+  }
+}
+
+.temp{
+  margin-top: 40px;
+  color: #999;
 }
