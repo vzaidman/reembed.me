@@ -1,3 +1,3 @@
 import {makeActionCreator} from 'redux-toolbelt'
 
-export const toggle = makeActionCreator('TOGGLE')
+export const changeURLToFetch = makeActionCreator('CHANGE_URL_TO_FETCH')

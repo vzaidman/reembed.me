@@ -2,15 +2,15 @@ import {combineReducers} from 'redux'
 import * as actions from 'actions'
 
 const defaultState = {
-  toggled: false
+  urlToFetch: false
 }
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
-    case actions.toggle.TYPE:
+    case actions.changeURLToFetch.TYPE:
       return {
-        ...state,
-        toggled: !state.toggled
+        urlToFetch: action.payload,
+        ...state
       }
     default:
       return state

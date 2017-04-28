@@ -1,3 +1,19 @@
+html, body, #react-root, .app{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
 .app{
   color: black;
+  display: flex;
+  justify-content: center;
+  background-color: #f6f6f6;
+}
+
+h1{
+  margin-bottom: 50px;
 }
