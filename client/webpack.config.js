@@ -16,7 +16,7 @@ const config = {
     ],
     vendor: [
       'babel-polyfill',
-      'webpack-dev-server/client?http://localhost:8080'
+      'webpack-dev-server/client?http://localhost:5555'
     ]
   },
   output: {
