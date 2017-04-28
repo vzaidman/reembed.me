@@ -3,7 +3,7 @@ import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
-import {pure} from 'recompose'
+import {compose, pure, withPropsOnChange} from 'recompose'
 
 import * as actions from 'actions'
 
@@ -11,18 +11,37 @@ import ImageChooser from './ImageChooser'
 
 import './MainPage.scss'
 
+const enhance = compose(
+  withPropsOnChange(
+    ['actions'],
+    props => {
+      const {actions: {updateEmbedFields, changeUrlToFetch}} = props
+      return {
+        changeTitle: e => updateEmbedFields({title: e.target.value}),
+        changeDescription: e => updateEmbedFields({description: e.target.value}),
+        changeUrl: e => updateEmbedFields({url: e.target.value}),
+        changeUrlToFetch: e => changeUrlToFetch(e.target.value)
+      }
+    }
+  ),
+  withPropsOnChange(
+    ['embedFields'],
+    props => {
+      const {embedFields} = props
+      return {
+        ...embedFields
+      }
+    }
+  ),
+  pure
+)
 
-const MainPage = pure(({
-                         fetchedURL,
-                         title,
-                         description,
-                         URL,
-                         actions: {
-                           changeURLToFetch,
-                           changeTitle,
-                           changeDescription,
-                           changeURL
-                         }}) => (
+const MainPage = enhance(({
+    urlToFetch, changeUrlToFetch,
+    title, changeTitle,
+    description, changeDescription,
+    url, changeUrl
+  }) => (
   <div className="main-page">
 
     <h1>embed.me</h1>
@@ -30,7 +49,7 @@ const MainPage = pure(({
     <h2>Choose a URL to Embed</h2>
     <div className="fetch-url">
       <label>Embed URL:</label>
-      <input onChange={changeURLToFetch} value={fetchedURL}/>
+      <input onChange={changeUrlToFetch} value={urlToFetch}/>
     </div>
 
     <h2>Create an Embedded URL</h2>
@@ -48,7 +67,7 @@ const MainPage = pure(({
 
       <div className="input-group">
         <label>URL</label>
-        <input onChange={changeURL} value={URL}/>
+        <input onChange={changeUrl} value={url}/>
       </div>
 
       <div className="input-group">

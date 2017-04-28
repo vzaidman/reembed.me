@@ -2,18 +2,47 @@ import {combineReducers} from 'redux'
 import * as actions from 'actions'
 
 const defaultState = {
-  urlToFetch: false
+  urlToFetch: '',
+  embedFields: {
+    title: '',
+    description: '',
+    url: ''
+  }
 }
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
-    case actions.changeURLToFetch.TYPE:
+
+    case actions.changeUrlToFetch.TYPE: {
+      const urlToFetch = action.payload
       return {
-        urlToFetch: action.payload,
-        ...state
+        ...state,
+        urlToFetch
       }
-    default:
+    }
+
+    case actions.changeEmbedFields.TYPE: {
+      const embedFields = action.payload
+      return {
+        ...state,
+        embedFields
+      }
+    }
+
+    case actions.updateEmbedFields.TYPE: {
+      const embedFields = {
+        ...state.embedFields,
+        ...action.payload
+      }
+      return {
+        ...state,
+        embedFields
+      }
+    }
+
+    default: {
       return state
+    }
   }
 }
 
