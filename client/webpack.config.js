@@ -15,6 +15,7 @@ const config = {
       './src/index.js'
     ],
     vendor: [
+      'whatwg-fetch',
       'babel-polyfill',
       'webpack-dev-server/client?http://localhost:5555'
     ]
