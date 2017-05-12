@@ -1,43 +1,42 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
 
 import * as actions from 'actions'
+import {getReembedFields} from 'selectors'
 
 import {calculateEmbeddedFields} from 'services/siteProcessor'
 import {fetchWebsite, requestReembed} from 'services/api'
 
-function* fetchUrl() {
+function* populateReembedFields() {
   const state = yield select()
   const {urlToFetch: url} = state.main
-  console.log('saga started')
   try {
-    console.log('fetchWebsite')
     const parsedSite = yield call(fetchWebsite, url)
 
-    console.log('calculateEmbeddedFields')
     const embeddedFields = yield call(calculateEmbeddedFields, parsedSite)
 
-    console.log('changeEmbedFields')
     yield put(actions.changeEmbedFields(embeddedFields))
-  } catch (e) {
+  }
+  catch (e) {
     yield put(actions.urlFetchFailed(e.message))
   }
 }
 
 function* reembed(){
   try {
-    const state = yield select()
-    const {reembedFields} = state.main
+    const reembedFields = yield select(getReembedFields)
 
     const reembeddedUrl = yield call(requestReembed, reembedFields)
-    yield put(actions.updateReembeddedUrl(reembeddedUrl))
+
+    yield put(actions.changeReembeddedUrl(reembeddedUrl))
+    // yield put(actions.reembed.success(reembeddedUrl))
   }
   catch(e){
-    yield put(actions.reembedFailed(e.message))
+    yield put(actions.reembed.failure(e.message))
   }
 }
 
 function* mySaga() {
-  yield takeLatest(actions.fetchUrl.TYPE, fetchUrl)
+  yield takeLatest(actions.fetchUrl.TYPE, populateReembedFields)
   yield takeLatest(actions.reembed.TYPE, reembed)
 }
 

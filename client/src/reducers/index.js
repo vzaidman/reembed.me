@@ -42,7 +42,7 @@ const main = (state = defaultState, action) => {
       }
     }
 
-    case actions.updateReembeddedUrl.TYPE: {
+    case actions.changeReembeddedUrl.TYPE: {
       const reembeddedUrl = action.payload
       return {
         ...state,

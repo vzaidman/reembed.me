@@ -1,0 +1,1 @@
+export const getReembedFields = state => state.main.reembedFields
