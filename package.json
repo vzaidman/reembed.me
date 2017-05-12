@@ -11,10 +11,7 @@
     "start": "node index.js",
     "build_client": "rimraf ./public/client && cd client && npm install && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/welldone-software/reembed.me.git"
-  },
+  "repository": "git+https://github.com/welldone-software/reembed.me.git",
   "keywords": [
     "reembed",
     "re-embed",
@@ -29,7 +26,9 @@
   },
   "homepage": "https://github.com/welldone-software/reembed.me#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "cross-env": "^4.0.0",

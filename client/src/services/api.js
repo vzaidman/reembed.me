@@ -1,6 +1,8 @@
 import normalizeUrl from 'normalize-url'
 
-export function fetchWebsite(url){
+const API_HOST = 'http://localhost:5000'
+
+export function fetchWebsite(url) {
   const normalizedUrl = normalizeUrl(url, {
     normalizeProtocol: true,
     normalizeHttps: false,
@@ -11,7 +13,9 @@ export function fetchWebsite(url){
     removeDirectoryIndex: false
   })
 
-  return fetch(normalizedUrl, {mode: 'no-cors', cache: 'no-cache', redirect: 'follow'})
+  const encodedUrl = encodeURIComponent(normalizedUrl)
+
+  return fetch(`${API_HOST}/api/v1/fetchWebsite?url=${encodedUrl}`, {mode: 'cors'})
     .then(response => response.text())
 }
 

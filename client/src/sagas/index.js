@@ -1,23 +1,24 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
 
 import * as actions from 'actions'
-import {getReembedFields} from 'selectors'
+import {getReembedFields, getUrlToFetch} from 'selectors'
 
-import {calculateEmbeddedFields} from 'services/siteProcessor'
+import {getRelevantTags} from 'services/siteProcessor'
 import {fetchWebsite, requestReembed} from 'services/api'
 
 function* populateReembedFields() {
-  const state = yield select()
-  const {urlToFetch: url} = state.main
+  const urlToFetch = yield select(getUrlToFetch)
   try {
-    const parsedSite = yield call(fetchWebsite, url)
+    const htmlText = yield call(fetchWebsite, urlToFetch)
 
-    const embeddedFields = yield call(calculateEmbeddedFields, parsedSite)
+    const relevantTags = yield call(getRelevantTags, htmlText)
 
-    yield put(actions.changeEmbedFields(embeddedFields))
+    debugger
+
+    yield put(actions.changeEmbedFields(relevantTags))
   }
   catch (e) {
-    yield put(actions.urlFetchFailed(e.message))
+    yield put(actions.populdateReembedFailed(e.message))
   }
 }
 
