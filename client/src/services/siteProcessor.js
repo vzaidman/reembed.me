@@ -3,7 +3,7 @@ import htmlparser from 'htmlparser2'
 export function getRelevantTags(htmlText){
   return new Promise((resolve, reject) => {
     const tags = {
-      meta: {},
+      meta: [],
       title: undefined
     }
 
@@ -15,7 +15,7 @@ export function getRelevantTags(htmlText){
           if(!tags.meta[name]){
             tags.meta[name] = []
           }
-          tags.meta[name].push(attributes)
+          tags.meta.push(attributes)
         }
       },
       ontext(text){
