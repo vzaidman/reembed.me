@@ -1,44 +1,52 @@
-import htmlparser from 'htmlparser2'
+import cheerio from 'cheerio'
 
 export function getRelevantTags(htmlText){
   return new Promise((resolve, reject) => {
-    const tags = {
-      meta: [],
-      title: undefined
-    }
-
-    let currentTag = undefined
-    const parserEvents = {
-      onopentag(name, attributes){
-        currentTag = name
-        if(currentTag === 'meta'){
-          if(!tags.meta[name]){
-            tags.meta[name] = []
-          }
-          tags.meta.push(attributes)
-        }
-      },
-      ontext(text){
-        if(currentTag === 'title'){
-          tags.title = text
-        }
-      },
-      onerror(error){
-        reject(error)
-      },
-      onend(){
-        resolve(tags)
-      }
-    }
-
-    const parser = new htmlparser.Parser(parserEvents, {
+    const doc = cheerio.load(htmlText, {
+      ignoreWhitespace: true,
       decodeEntities: true,
       lowerCaseTags: true,
       lowerCaseAttributeNames: true,
-      recognizeCDATA: true
+      recognizeCDATA: true,
+      recognizeSelfClosing: true
     })
-    parser.write(htmlText)
-    parser.end()
+
+    resolve({
+      title: extractTitle(doc),
+      description: extractDescription(doc),
+      image: extractImage(doc)
+    })
   })
 
+}
+
+function extractDescription(doc){
+  return {
+    meta: {
+      'description': doc("meta[name='description']").attr('content'),
+      'og:description': doc("meta[property='og:description']").attr('content')
+    }
+  }
+}
+
+function extractTitle(doc) {
+  // return {
+  //   'title': doc('title').text(),
+  //   meta: {
+  //     'title': doc("meta[name='title']").attr('content'),
+  //     'og:title': doc("meta[property='og:title']").attr('content')
+  //   }
+  // }
+}
+
+function extractImage(doc) {
+  // return {
+  //   meta: {
+  //     'image': doc.find("meta[name='image']").attr('content'),
+  //     'og:image': doc.find("meta[property='og:image']").attr('content')
+  //   },
+  //   img: {
+  //     'src': doc.find('img').attr('src')
+  //   }
+  // }
 }

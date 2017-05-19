@@ -16,7 +16,11 @@ export function fetchWebsite(url) {
   const encodedUrl = encodeURIComponent(normalizedUrl)
 
   return fetch(`${API_HOST}/api/v1/fetchWebsite?url=${encodedUrl}`, {mode: 'cors'})
-    .then(response => response.text())
+    .then(response => {
+      const contentType = response.headers.get('content-type')
+      const text = response.text()
+
+    })
 }
 
 export function requestReembed(reembedFields){

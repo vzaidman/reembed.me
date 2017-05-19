@@ -14,7 +14,12 @@ app.get('/favicon.ico', function(req, res){
 
 app.get('/api/v1/fetchWebsite', function(req, res){
   const url = req.query.url
-  req.pipe(request(url)).pipe(res)
+  const headers = {
+    'Accept': 'text/html;charset=utf-8',
+    'Content-Type': 'text/html;charset=utf-8',
+    'Accept-Charset': 'utf-8'
+  }
+  req.pipe(request({url , headers})).pipe(res)
 })
 
 app.use('/images', express.static(__dirname + '/public/images'))
