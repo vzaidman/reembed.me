@@ -6,13 +6,14 @@
   "engines": {
     "node": ">=7.8.0"
   },
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "postinstall": "npm run build",
     "prebuild": "rimraf ./public/client && cd client && yarn",
     "build": "cd client && cross-env NODE_ENV=production npm run build",
-    "publish": "git push --force heroku master"
+    "update_heroku": "git push --force heroku master"
   },
   "repository": "git+https://github.com/welldone-software/reembed.me.git",
   "keywords": [
