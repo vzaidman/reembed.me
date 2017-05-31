@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build_client": "rimraf ./public/client && cd client && npm install && npm run build"
+    "build_client": "rimraf ./public/client && cd client && npm install && npm run build",
+    "publish": "npm run build_client"
   },
   "repository": "git+https://github.com/welldone-software/reembed.me.git",
   "keywords": [
@@ -28,7 +29,9 @@
   "dependencies": {
     "cors": "^2.8.3",
     "express": "^4.15.2",
-    "request": "^2.81.0"
+    "nedb": "^1.8.0",
+    "request": "^2.81.0",
+    "urijs": "^1.18.10"
   },
   "devDependencies": {
     "cross-env": "^4.0.0",
