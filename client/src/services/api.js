@@ -17,7 +17,7 @@ export function fetchWebsite(url) {
   })
 
   return axios({
-    url: urijs.joinPaths(API_URL, '/api/v1/fetchWebsite').toString(),
+    url: urijs(API_URL).path('/api/v1/fetchWebsite').toString(),
     params: {
       url: normalizedUrl
     },
@@ -36,12 +36,12 @@ export function fetchWebsite(url) {
 
 export function requestReembed(reembedFields){
   return axios({
-    url: urijs.joinPaths(API_URL, '/api/v1/requestReembed').toString(),
+    url: urijs(API_URL).path('/api/v1/requestReembed').toString(),
     data: reembedFields,
     method: 'post',
     responseType: 'text'
   }).then(response => {
     const id = response.data
-    return urijs.joinPaths(window.location, id).toString()
+    return urijs(API_URL).path(id).toString()
   })
 }

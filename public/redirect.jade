@@ -15,7 +15,10 @@ html
         link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
         script.
             url = "!{url}"
-            console.log(url)
+            if(url.indexOf('http') !== 0){
+              url = 'http://' + url
+            }
+            window.location = url
     body
         a(href='#{url}')
             #main

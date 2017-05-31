@@ -10,6 +10,7 @@ const isDevelopment = NODE_ENV === 'development'
 console.log(`Building in env: ${NODE_ENV}`)
 
 const API_URL = process.env.API_URL || '/'
+const PORT = process.env.PORT || 5000
 
 const config = {
   context: __dirname,
@@ -20,7 +21,7 @@ const config = {
     ]),
     vendor: _.compact([
       'babel-polyfill',
-      isDevelopment && `webpack-dev-server/client?${API_URL}`
+      isDevelopment && `webpack-dev-server/client?http://localhost:${PORT}`
     ])
   },
   output: {
@@ -65,7 +66,7 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(NODE_ENV),
-        'API_SERVER': JSON.stringify(API_URL)
+        'API_URL': JSON.stringify(API_URL)
       }
     })
   ]

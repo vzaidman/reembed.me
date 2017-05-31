@@ -1,7 +1,7 @@
 {
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --colors --content-base dist --port 5555",
+    "start": "cross-env API_URL=http://localhost:5555/ webpack-dev-server --colors --content-base dist --port 5000",
     "build": "webpack --progress --profile --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
