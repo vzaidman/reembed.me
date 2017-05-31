@@ -13,7 +13,7 @@
     "prebuild": "rimraf ./public/client && cd client && yarn",
     "build": "cd client && cross-env NODE_ENV=production npm run build",
     "start": "node index.js",
-    "update_heroku": "git push --force heroku master"
+    "push": "git push --force && git push --force heroku master"
   },
   "repository": "git+https://github.com/welldone-software/reembed.me.git",
   "keywords": [
