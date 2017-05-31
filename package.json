@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "build_client": "cd client && cross-env NODE_ENV=production npm run build",
-    "publish": "rimraf ./public/client && cd client && npm install && cd .. && npm run build_client && cd .. && git push heroku master"
+    "prepublish": "rimraf ./public/client && cd client && npm install && cd .. && npm run build_client",
+    "publish": "git push heroku master"
   },
   "repository": "git+https://github.com/welldone-software/reembed.me.git",
   "keywords": [
