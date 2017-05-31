@@ -16,7 +16,7 @@ export function getRelevantTags(htmlText, urlToFetch){
     resolve({
       title: extractTitle(doc),
       description: extractDescription(doc),
-      image: extractImage(doc, urlToFetch)
+      imageUrl: extractImage(doc, urlToFetch)
     })
   })
 }

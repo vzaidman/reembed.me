@@ -13,8 +13,6 @@ function* populateReembedFields() {
 
     const relevantTags = yield call(getRelevantTags, htmlText, urlToFetch)
 
-    debugger
-
     yield put(actions.changeEmbedFields(relevantTags))
   }
   catch (e) {

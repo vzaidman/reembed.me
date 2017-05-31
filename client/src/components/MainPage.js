@@ -37,6 +37,7 @@ const MainPage = enhance(({
     fetchUrl,
     title, changeTitle,
     description, changeDescription,
+    imageUrl,
     url, changeUrl,
     useUrl, changeUseUrl,
     reembeddedUrl, reembed
@@ -78,7 +79,7 @@ const MainPage = enhance(({
 
       <div className="input-group">
         <label>Choose an image</label>
-        <ImageChooser/>
+        <ImageChooser imageUrl={imageUrl}/>
       </div>
 
       <button onClick={reembed}>reembed.me!</button>
