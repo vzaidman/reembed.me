@@ -16,7 +16,6 @@ app.get('/api/v1/fetchWebsite', function(req, res){
   const url = req.query.url
   const headers = {
     'Accept': 'text/html;charset=utf-8',
-    'Content-Type': 'text/html;charset=utf-8',
     'Accept-Charset': 'utf-8'
   }
   req.pipe(request({url , headers})).pipe(res)

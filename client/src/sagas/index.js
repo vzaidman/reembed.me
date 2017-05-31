@@ -11,7 +11,7 @@ function* populateReembedFields() {
   try {
     const htmlText = yield call(fetchWebsite, urlToFetch)
 
-    const relevantTags = yield call(getRelevantTags, htmlText)
+    const relevantTags = yield call(getRelevantTags, htmlText, urlToFetch)
 
     debugger
 

@@ -1,4 +1,5 @@
 import normalizeUrl from 'normalize-url'
+import axios from 'axios'
 import iconv from 'iconv-lite'
 
 const API_HOST = 'http://localhost:5000'
@@ -16,18 +17,18 @@ export function fetchWebsite(url) {
 
   const encodedUrl = encodeURIComponent(normalizedUrl)
 
-  return fetch(`${API_HOST}/api/v1/fetchWebsite?url=${encodedUrl}`, {mode: 'cors'})
-    .then(response => {
-      const contentType = response.headers.get('content-type')
+  return axios({
+    url: `${API_HOST}/api/v1/fetchWebsite?url=${encodedUrl}`,
+    method: 'get',
+    responseType: 'text'
+  }).then(response => {
+      const contentType = response.headers['content-type']
       const charsetMatch = /charset=\s*"?([^\s;"]*)/i.exec(contentType)
       const matchedCharset = charsetMatch && charsetMatch[1]
-      const charset = iconv.encodingExists(matchedCharset) ? matchedCharset : 'utf-8'
-      return response.text()
-        .then(text => {
-          const decoded = iconv.decode(text, charset)
-          debugger
-          return decoded
-        })
+      const charset = (matchedCharset && iconv.encodingExists(matchedCharset)) ?
+        matchedCharset : 'utf-8'
+
+      return iconv.decode(response.data, charset)
     })
 }
 

@@ -1,6 +1,8 @@
 import cheerio from 'cheerio'
+import {first, compact, startsWith} from 'lodash'
+import urijs from 'urijs'
 
-export function getRelevantTags(htmlText){
+export function getRelevantTags(htmlText, urlToFetch){
   return new Promise((resolve, reject) => {
     const doc = cheerio.load(htmlText, {
       ignoreWhitespace: true,
@@ -14,39 +16,42 @@ export function getRelevantTags(htmlText){
     resolve({
       title: extractTitle(doc),
       description: extractDescription(doc),
-      image: extractImage(doc)
+      image: extractImage(doc, urlToFetch)
     })
   })
-
 }
 
 function extractDescription(doc){
-  return {
-    meta: {
-      'description': doc("meta[name='description']").attr('content'),
-      'og:description': doc("meta[property='og:description']").attr('content')
-    }
-  }
+  return first(compact([
+    doc("meta[name='description']").attr('content'),
+    doc("meta[property='og:description']").attr('content')
+  ]))
 }
 
 function extractTitle(doc) {
-  // return {
-  //   'title': doc('title').text(),
-  //   meta: {
-  //     'title': doc("meta[name='title']").attr('content'),
-  //     'og:title': doc("meta[property='og:title']").attr('content')
-  //   }
-  // }
+  return first(compact([
+    doc("meta[name='title']").attr('content'),
+    doc("meta[property='og:title']").attr('content'),
+    doc('title').text(),
+  ]))
 }
 
-function extractImage(doc) {
-  // return {
-  //   meta: {
-  //     'image': doc.find("meta[name='image']").attr('content'),
-  //     'og:image': doc.find("meta[property='og:image']").attr('content')
-  //   },
-  //   img: {
-  //     'src': doc.find('img').attr('src')
-  //   }
-  // }
+function extractImage(doc, urlToFetch) {
+  const imageUrl = first(compact([
+    doc("meta[name='image']").attr('content'),
+    doc("meta[property='og:image']").attr('content'),
+    doc('img').attr('src'),
+  ]))
+
+  const imageProtocol = urijs(imageUrl).protocol()
+  if(imageProtocol){
+    return imageUrl
+  }
+
+  if(startsWith(imageUrl, '//')){
+    const urlToFetchProtocol = urijs(urlToFetch).protocol()
+    return urijs(imageUrl).protocol(urlToFetchProtocol).toString()
+  }
+
+  return urijs.joinPaths(urlToFetch, imageUrl).toString()
 }

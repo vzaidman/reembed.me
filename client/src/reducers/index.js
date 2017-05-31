@@ -2,7 +2,7 @@ import {combineReducers} from 'redux'
 import * as actions from 'actions'
 
 const defaultState = {
-  urlToFetch: 'http://nrg.co.il',
+  urlToFetch: 'http://www.cnn.com/',
   reembedFields: {
     title: '',
     description: '',
