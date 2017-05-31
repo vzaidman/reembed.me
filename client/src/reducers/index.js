@@ -2,7 +2,7 @@ import {combineReducers} from 'redux'
 import * as actions from 'actions'
 
 const defaultState = {
-  urlToFetch: 'http://www.cnn.com/',
+  urlToFetch: '',
   reembedFields: {
     title: '',
     description: '',
@@ -19,7 +19,11 @@ const main = (state = defaultState, action) => {
       const urlToFetch = action.payload
       return {
         ...state,
-        urlToFetch
+        urlToFetch,
+        reembedFields: {
+          ...state.reembedFields,
+          url: urlToFetch
+        }
       }
     }
 

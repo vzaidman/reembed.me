@@ -1,9 +1,7 @@
 import React from 'react'
-
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-
-import {compose, pure, withPropsOnChange} from 'recompose'
+import {compose, pure, withPropsOnChange, lifecycle} from 'recompose'
 
 import * as actions from 'actions'
 
@@ -29,6 +27,12 @@ const enhance = compose(
       changeUrl: e => updateEmbedFields({url: e.target.value}),
       changeUseUrl: e => updateEmbedFields({useUrl: e.target.checked}),
       reembed
+    }
+  }),
+  lifecycle({
+    //TEMP
+    componentDidMount(){
+      this.props.actions.changeUrlToFetch('cnn.com')
     }
   })
 )
@@ -70,6 +74,9 @@ const MainPage = enhance(({
       <div className="input-group">
         <label>Use URL</label>
         <input type="checkbox" onChange={changeUseUrl} value={useUrl}/>
+        <span className="description">
+          Some services will use the embedded fields of the chosen URL and ignore your own fields.
+        </span>
       </div>
 
       <div className="input-group">
