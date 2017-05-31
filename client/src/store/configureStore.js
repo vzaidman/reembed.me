@@ -1,5 +1,5 @@
-import { applyMiddleware, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
+import {applyMiddleware, createStore} from 'redux'
+import {composeWithDevTools} from 'redux-devtools-extension'
 
 import createLogger from 'redux-logger'
 

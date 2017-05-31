@@ -9,8 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build_client": "rimraf ./public/client && cd client && npm install && npm run build",
-    "publish": "npm run build_client"
+    "build_client": "cd client && cross-env NODE_ENV=production npm run build",
+    "publish": "rimraf ./public/client && cd client && npm install && cd .. && npm run build_client"
   },
   "repository": "git+https://github.com/welldone-software/reembed.me.git",
   "keywords": [

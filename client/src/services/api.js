@@ -2,7 +2,7 @@ import normalizeUrl from 'normalize-url'
 import axios from 'axios'
 import iconv from 'iconv-lite'
 
-const API_HOST = 'http://localhost:5000'
+const API_URL = process.env.API_URL
 
 export function fetchWebsite(url) {
   const normalizedUrl = normalizeUrl(url, {
@@ -18,7 +18,7 @@ export function fetchWebsite(url) {
   const encodedUrl = encodeURIComponent(normalizedUrl)
 
   return axios({
-    url: `${API_HOST}/api/v1/fetchWebsite?url=${encodedUrl}`,
+    url: `${API_URL}/api/v1/fetchWebsite?url=${encodedUrl}`,
     method: 'get',
     responseType: 'text'
   }).then(response => {
@@ -34,7 +34,7 @@ export function fetchWebsite(url) {
 
 export function requestReembed(reembedFields){
   return axios({
-    url: `${API_HOST}/api/v1/requestReembed`,
+    url: `${API_URL}/api/v1/requestReembed`,
     data: reembedFields,
     method: 'post',
     responseType: 'text'

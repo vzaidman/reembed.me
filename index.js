@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const request = require('request')
 const cors = require('cors')
@@ -5,7 +6,7 @@ const cors = require('cors')
 const Datastore = require('nedb')
 const urijs = require('urijs')
 
-const PORT = process.env.PORT || 80
+const PORT = process.env.PORT || 5555
 const HOST = process.env.HOST || 'localhost'
 const BASE_URL = urijs(`http://${HOST}:${PORT}`).normalize().toString()
 
@@ -50,6 +51,6 @@ app.get('*', function(req, res){
   res.sendFile('redirect.html', {root: __dirname + '/public'})
 })
 
-app.listen(BASE_URL, function () {
-  console.log('Example app listening on port', app.get('port'))
+app.listen(PORT, function () {
+  console.log('Example app listening on port', PORT)
 })

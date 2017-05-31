@@ -2,23 +2,26 @@ const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const _ = require('lodash')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
-
 const isDevelopment = NODE_ENV === 'development'
+
+console.log(`Building in env: ${NODE_ENV}`)
+
+const API_URL = process.env.API_URL || '/'
 
 const config = {
   context: __dirname,
   entry: {
-    app: [
-      'react-hot-loader/patch',
+    app: _.compact([
+      isDevelopment && 'react-hot-loader/patch',
       './src/index.js'
-    ],
-    vendor: [
-      'whatwg-fetch',
+    ]),
+    vendor: _.compact([
       'babel-polyfill',
-      'webpack-dev-server/client?http://localhost:5555'
-    ]
+      isDevelopment && `webpack-dev-server/client?${API_URL}`
+    ])
   },
   output: {
     filename: 'main.[hash].js',
@@ -61,7 +64,8 @@ const config = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(NODE_ENV)
+        'NODE_ENV': JSON.stringify(NODE_ENV),
+        'API_SERVER': JSON.stringify(API_URL)
       }
     })
   ]
