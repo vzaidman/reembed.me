@@ -41,6 +41,7 @@ export function requestReembed(reembedFields){
     method: 'post',
     responseType: 'text'
   }).then(response => {
-    return response.data
+    const id = response.data
+    return urijs.joinPaths(window.location, id).toString()
   })
 }

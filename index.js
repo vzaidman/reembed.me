@@ -41,8 +41,7 @@ app.post('/api/v1/requestReembed', function(req, res){
       return
     }
     const id = newDoc._id
-    const reembeddedUrl = urijs(BASE_URL).path(id).toString()
-    res.send(reembeddedUrl)
+    res.send(id)
   })
 })
 

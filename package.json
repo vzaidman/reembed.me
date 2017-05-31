@@ -1,6 +1,6 @@
 {
   "name": "reembed.me",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Website for Link Reembeding",
   "main": "index.js",
   "engines": {
@@ -9,9 +9,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build_client": "cd client && cross-env NODE_ENV=production npm run build",
-    "prepublish": "rimraf ./public/client && cd client && npm install && cd .. && npm run build_client",
-    "publish": "git push heroku master"
+    "postinstall": "npm run build",
+    "prebuild": "rimraf ./public/client && cd client && yarn",
+    "build": "cd client && cross-env NODE_ENV=production npm run build",
+    "publish": "git push --force heroku master"
   },
   "repository": "git+https://github.com/welldone-software/reembed.me.git",
   "keywords": [
