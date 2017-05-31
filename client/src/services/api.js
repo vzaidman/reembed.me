@@ -1,8 +1,9 @@
 import normalizeUrl from 'normalize-url'
 import axios from 'axios'
 import iconv from 'iconv-lite'
+import urijs from 'urijs'
 
-const API_URL = process.env.API_URL
+const API_URL = process.env.API_URL || '/'
 
 export function fetchWebsite(url) {
   const normalizedUrl = normalizeUrl(url, {
@@ -15,10 +16,11 @@ export function fetchWebsite(url) {
     removeDirectoryIndex: false
   })
 
-  const encodedUrl = encodeURIComponent(normalizedUrl)
-
   return axios({
-    url: `${API_URL}/api/v1/fetchWebsite?url=${encodedUrl}`,
+    url: urijs.joinPaths(API_URL, '/api/v1/fetchWebsite').toString(),
+    params: {
+      url: normalizedUrl
+    },
     method: 'get',
     responseType: 'text'
   }).then(response => {
@@ -34,7 +36,7 @@ export function fetchWebsite(url) {
 
 export function requestReembed(reembedFields){
   return axios({
-    url: `${API_URL}/api/v1/requestReembed`,
+    url: urijs.joinPaths(API_URL, '/api/v1/requestReembed').toString(),
     data: reembedFields,
     method: 'post',
     responseType: 'text'

@@ -27,7 +27,6 @@ function* reembed(){
     const reembeddedUrl = yield call(requestReembed, reembedFields)
 
     yield put(actions.changeReembeddedUrl(reembeddedUrl))
-    // yield put(actions.reembed.success(reembeddedUrl))
   }
   catch(e){
     yield put(actions.reembed.failure(e.message))

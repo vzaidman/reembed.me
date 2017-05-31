@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const request = require('request')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
 const Datastore = require('nedb')
 const urijs = require('urijs')
@@ -15,6 +16,7 @@ const db = new Datastore({ filename: path.join(__dirname, 'database.db'), autolo
 const app = express()
 
 app.use(cors())
+app.use(bodyParser.json());
 
 app.get('/favicon.ico', function(req, res){
   res.sendFile('favicon.ico', {root: __dirname + '/public'})
@@ -30,15 +32,17 @@ app.get('/api/v1/fetchWebsite', function(req, res){
 })
 
 app.post('/api/v1/requestReembed', function(req, res){
-  const reembedFields = req.params
+  const reembedFields = req.body
   db.insert(reembedFields, function(err, newDoc){
     if(err){
       res.error(err)
       return
     }
 
-    const id = newDoc.id
-    const reembeddedUrl = BASE_URL + newDoc.id
+    const id = newDoc._id
+
+    const reembeddedUrl = urijs(BASE_URL).path(id).toString()
+
     res.send(reembeddedUrl)
   })
 })
