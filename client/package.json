@@ -8,8 +8,6 @@
   "dependencies": {
     "axios": "^0.16.1",
     "cheerio": "^0.22.0",
-    "htmlparser2": "^3.9.2",
-    "iconv-js": "^0.3.5",
     "iconv-lite": "^0.4.17",
     "lodash": "^4.17.4",
     "normalize-url": "^1.9.1",
@@ -22,8 +20,7 @@
     "redux-logger": "^2.7.4",
     "redux-saga": "^0.14.8",
     "redux-toolbelt": "^1.1.0",
-    "urijs": "^1.18.10",
-    "whatwg-fetch": "^2.0.3"
+    "urijs": "^1.18.10"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
