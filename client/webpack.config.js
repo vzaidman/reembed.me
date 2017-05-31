@@ -9,7 +9,7 @@ const isDevelopment = NODE_ENV === 'development'
 
 console.log(`Building in env: ${NODE_ENV}`)
 
-const API_URL = process.env.API_URL || '/'
+const API_URL = process.env.API_URL
 const PORT = process.env.PORT || 5000
 
 const config = {
