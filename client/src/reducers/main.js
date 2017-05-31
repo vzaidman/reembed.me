@@ -6,6 +6,7 @@ const defaultState = {
     title: '',
     description: '',
     url: '',
+    imageUrl: '',
     useUrl: false
   },
   reembeddedUrl: ''
@@ -30,10 +31,7 @@ export default function main(state = defaultState, action){
       const reembedFields = action.payload
       return {
         ...state,
-        reembedFields: {
-          ...reembedFields,
-          useUrl: !!reembedFields.useUrl
-        }
+        reembedFields
       }
     }
 

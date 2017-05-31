@@ -16,7 +16,9 @@ const db = new Datastore({ filename: path.join(__dirname, 'database.db'), autolo
 const app = express()
 
 app.use(cors())
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+app.set('view engine', 'jade')
+app.set('views', __dirname + '/public')
 
 app.get('/favicon.ico', function(req, res){
   res.sendFile('favicon.ico', {root: __dirname + '/public'})
@@ -38,11 +40,8 @@ app.post('/api/v1/requestReembed', function(req, res){
       res.error(err)
       return
     }
-
     const id = newDoc._id
-
     const reembeddedUrl = urijs(BASE_URL).path(id).toString()
-
     res.send(reembeddedUrl)
   })
 })
@@ -51,8 +50,21 @@ app.use('/images', express.static(__dirname + '/public/images'))
 
 app.use('/', express.static(__dirname + '/public/client'))
 
-app.get('*', function(req, res){
-  res.sendFile('redirect.html', {root: __dirname + '/public'})
+app.get('/:id', function(req, res){
+  const id = req.params.id
+  db.findOne({ _id: id }, function (err, doc) {
+    if(err){
+      res.error(err)
+      return
+    }
+
+    if(!doc){
+      res.sendFile('not-found.html', {root: __dirname + '/public'})
+      return
+    }
+
+    res.render('redirect.jade', doc)
+  });
 })
 
 app.listen(PORT, function () {

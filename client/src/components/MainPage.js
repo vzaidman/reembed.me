@@ -93,7 +93,7 @@ const MainPage = enhance(({
     </div>
 
     {reembeddedUrl && (
-      <h2>Your re-embedded url is: <a href="#">{reembeddedUrl}</a></h2>
+      <h2>Your re-embedded url is: <a href={reembeddedUrl}>{reembeddedUrl}</a></h2>
     )}
 
   </div>

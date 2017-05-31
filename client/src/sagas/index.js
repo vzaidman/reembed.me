@@ -13,7 +13,11 @@ function* populateReembedFields() {
 
     const relevantTags = yield call(getRelevantTags, htmlText, urlToFetch)
 
-    yield put(actions.changeEmbedFields(relevantTags))
+    yield put(actions.changeEmbedFields({
+      ...relevantTags,
+      useUrl: false,
+      url: urlToFetch
+    }))
   }
   catch (e) {
     yield put(actions.populdateReembedFailed(e.message))

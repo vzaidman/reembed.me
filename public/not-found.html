@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>reembed.me</title>
+
+    <meta charset="UTF-8" />
+
+    <meta name="title" content="reembed.me" />
+    <meta property="og:title" content="reembed.me" />
+
+    <meta name="description" content="Reembed any site with you custom info" />
+    <meta property="og:description" content="Reembed any site with you custom info" />
+
+    <!--<meta name="image" content="https://infinite-falls-14126.herokuapp.com/images/test-image.png" />-->
+    <!--<meta property="og:image" content="https://infinite-falls-14126.herokuapp.com/images/test-image.png" />-->
+
+    <meta name="url" content="http://www.seleniumhq.org/" />
+    <meta name="identifier-URL" content="http://www.seleniumhq.org/" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script>
+        var secondsToGo = 5
+        function passSecond(){
+          setTimeout(function(){
+            secondsToGo = secondsToGo - 1
+            document.getElementById('seconds').innerHTML = ('' + secondsToGo)
+            if(secondsToGo > 0){
+              passSecond()
+            }
+            else{
+              window.location = "http://www.reembed.me/"
+            }
+          }, 1000)
+        }
+        passSecond()
+    </script>
+</head>
+<body>
+<div id="main">
+    <div>The requested reembedded site was not found.</div>
+    <div>Redirecting you to the <a href="http://reembed.me">main site</a> in <a id="seconds">5</a> seconds.</div>
+</div>
+</body>
+</html>
