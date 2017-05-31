@@ -21,6 +21,11 @@ app.get('/api/v1/fetchWebsite', function(req, res){
   req.pipe(request({url , headers})).pipe(res)
 })
 
+app.post('/api/v1/requestReembed', function(req, res){
+  console.log(req)
+  res.send('http://some.url')
+})
+
 app.use('/images', express.static(__dirname + '/public/images'))
 
 app.use('/', express.static(__dirname + '/public/client'))

@@ -33,9 +33,12 @@ export function fetchWebsite(url) {
 }
 
 export function requestReembed(reembedFields){
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('http://reembed.me/g7k3d0z')
-    }, 1000)
+  return axios({
+    url: `${API_HOST}/api/v1/requestReembed`,
+    data: reembedFields,
+    method: 'post',
+    responseType: 'text'
+  }).then(response => {
+    return response.data
   })
 }
