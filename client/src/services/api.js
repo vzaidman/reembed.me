@@ -3,7 +3,7 @@ import axios from 'axios'
 import iconv from 'iconv-lite'
 import urijs from 'urijs'
 
-const API_URL = process.env.API_URL || '/'
+const API_URL = process.env.API_URL || window.location
 
 export function fetchWebsite(url) {
   const normalizedUrl = normalizeUrl(url, {
