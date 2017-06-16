@@ -5,6 +5,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const _ = require('lodash')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
+const FILESTACK_API_KEY = process.env.FILESTACK_API_KEY
+
+if(!FILESTACK_API_KEY){
+  throw new Error('No Filestack Api Key supplied.')
+}
+
 const isDevelopment = NODE_ENV === 'development'
 
 console.log(`Building in env: ${NODE_ENV}`)
@@ -66,7 +72,8 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(NODE_ENV),
-        'API_URL': JSON.stringify(API_URL)
+        'API_URL': JSON.stringify(API_URL),
+        'FILESTACK_API_KEY': JSON.stringify(FILESTACK_API_KEY)
       }
     })
   ]

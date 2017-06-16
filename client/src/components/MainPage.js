@@ -22,10 +22,11 @@ const enhance = compose(
     return {
       changeUrlToFetch: e => changeUrlToFetch(e.target.value),
       fetchUrl,
-      changeTitle: e => updateEmbedFields({title: e.target.value}),
-      changeDescription: e => updateEmbedFields({description: e.target.value}),
-      changeUrl: e => updateEmbedFields({url: e.target.value}),
-      changeUseUrl: e => updateEmbedFields({useUrl: e.target.checked}),
+      changeTitle: e => updateEmbedFields({ title: e.target.value }),
+      changeDescription: e => updateEmbedFields({ description: e.target.value }),
+      changeUrl: e => updateEmbedFields({ url: e.target.value }),
+      changeUseUrl: e => updateEmbedFields({ useUrl: e.target.checked }),
+      changeImageUrl: imageUrl => updateEmbedFields({ imageUrl }),
       reembed
     }
   }),
@@ -41,7 +42,7 @@ const MainPage = enhance(({
     fetchUrl,
     title, changeTitle,
     description, changeDescription,
-    imageUrl,
+    imageUrl, changeImageUrl,
     url, changeUrl,
     useUrl, changeUseUrl,
     reembeddedUrl, reembed
@@ -86,7 +87,9 @@ const MainPage = enhance(({
 
       <div className="input-group">
         <label>Choose an image</label>
-        <ImageChooser imageUrl={imageUrl}/>
+        <div className="image-chooser-container">
+          <ImageChooser imageUrl={imageUrl} onChange={changeImageUrl}/>
+        </div>
       </div>
 
       <button onClick={reembed}>reembed.me!</button>
