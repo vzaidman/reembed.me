@@ -31,7 +31,7 @@ const ImageChooser = enhance(({imageUrl, imageUploaded, nextImageUrl}) => {
       <div className="controls">
         <ReactFilestack
           apikey={fileStackApiKey}
-          buttonText="Upload an image"
+          buttonText="Upload"
           buttonClass="upload-image-button"
           onSuccess={imageUploaded}
         />

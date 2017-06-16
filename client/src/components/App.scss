@@ -1,5 +1,6 @@
 html{
-  box-sizing: content-box;
+  background-color: #f6f6f6;
+  box-sizing: border-box;
   * {
     box-sizing: inherit;
   }
@@ -7,6 +8,8 @@ html{
 
 html, body, #react-root, .app{
   position: relative;
+  height: 100%;
+  width: 100%;
   padding: 0;
   margin: 0;
   text-align: center;
@@ -14,6 +17,11 @@ html, body, #react-root, .app{
 
 .app{
   color: black;
+}
+
+.app-content-wrapper{
+  width: 800px;
+  height: 100%;
   display: block;
-  background-color: #f6f6f6;
+  margin: 0 auto;
 }

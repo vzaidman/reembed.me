@@ -1,6 +1,7 @@
 .main-page{
-  width: 800px;
+  width: 100%;
   height: auto;
+  min-height: 100%;
   background-color: white;
   border: 1px solid #ccc;
   border-top: none;
@@ -43,7 +44,7 @@ h1{
 
 .image-chooser-container{
   width: 200px;
-  height: 220px;
+  height: 150px;
   margin: 20px;
 }
 

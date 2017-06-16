@@ -9,7 +9,9 @@ import MainPage from './MainPage'
 
 const App = pure(() => (
   <div className="app">
-    <MainPage/>
+    <div className="app-content-wrapper">
+      <MainPage/>
+    </div>
   </div>
 ))
 
