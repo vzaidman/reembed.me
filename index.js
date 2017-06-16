@@ -3,15 +3,13 @@ const express = require('express')
 const request = require('request')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const normalizeUrl = require('normalize-url')
 
 const Datastore = require('nedb')
-const urijs = require('urijs')
 
-const PORT = process.env.PORT || 5555
-const HOST = process.env.HOST || 'localhost'
-const BASE_URL = urijs(`http://${HOST}:${PORT}`).normalize().toString()
+const PORT = process.env.PORT || 80
 
-const db = new Datastore({ filename: path.join(__dirname, 'database.db'), autoload: true })
+const db = new Datastore({ filename: __dirname + '/database.db', autoload: true })
 
 const app = express()
 
@@ -35,13 +33,14 @@ app.get('/api/v1/fetchWebsite', function(req, res){
 
 app.post('/api/v1/requestReembed', function(req, res){
   const reembedFields = req.body
+  const origin = req.headers.origin
   db.insert(reembedFields, function(err, newDoc){
     if(err){
       res.error(err)
       return
     }
     const id = newDoc._id
-    res.send(id)
+    res.send({reembeddedUrl: normalizeUrl(`${origin}/${id}`)})
   })
 })
 
@@ -63,9 +62,9 @@ app.get('/:id', function(req, res){
     }
 
     res.render('redirect.jade', doc)
-  });
+  })
 })
 
 app.listen(PORT, function () {
-  console.log('Example app listening on port', PORT)
+  console.log('app listening on port', PORT)
 })

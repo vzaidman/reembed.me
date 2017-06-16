@@ -3,7 +3,7 @@ import axios from 'axios'
 import iconv from 'iconv-lite'
 import urijs from 'urijs'
 
-const API_URL = process.env.API_URL || window.location.href
+const API_URL = process.env.API_URL || ''
 
 export function fetchWebsite(url) {
   const normalizedUrl = normalizeUrl(url, {
@@ -17,7 +17,7 @@ export function fetchWebsite(url) {
   })
 
   return axios({
-    url: urijs(API_URL).path('/api/v1/fetchWebsite').toString(),
+    url: urijs(API_URL).path('api/v1/fetchWebsite').toString(),
     params: {
       url: normalizedUrl
     },
@@ -36,12 +36,12 @@ export function fetchWebsite(url) {
 
 export function requestReembed(reembedFields){
   return axios({
-    url: urijs(API_URL).path('/api/v1/requestReembed').toString(),
+    url: urijs(API_URL).path('api/v1/requestReembed').toString(),
     data: reembedFields,
     method: 'post',
     responseType: 'text'
   }).then(response => {
-    const id = response.data
-    return urijs(API_URL).path(id).toString()
+    const {reembeddedUrl} = response.data
+    return reembeddedUrl
   })
 }
