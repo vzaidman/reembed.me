@@ -50,7 +50,7 @@ const MainPage = enhance(({
   }) => (
   <div className="main-page">
 
-    <h1>embed.me</h1>
+    <h1>reembed.me</h1>
 
     <h2>Choose a URL to Embed</h2>
     <div className="fetch-url">
