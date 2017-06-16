@@ -1,6 +1,9 @@
+import {first, uniq, compact, startsWith} from 'lodash'
+
 import cheerio from 'cheerio'
-import {first, compact, startsWith} from 'lodash'
 import urijs from 'urijs'
+
+import {flattenDeepCheerioElements} from 'utils'
 
 export function getRelevantTags(htmlText, urlToFetch){
   return new Promise((resolve, reject) => {
@@ -16,7 +19,7 @@ export function getRelevantTags(htmlText, urlToFetch){
     resolve({
       title: extractTitle(doc),
       description: extractDescription(doc),
-      imageUrl: extractImage(doc, urlToFetch)
+      imageUrls: extractImages(doc, urlToFetch)
     })
   })
 }
@@ -36,22 +39,24 @@ function extractTitle(doc) {
   ]))
 }
 
-function extractImage(doc, urlToFetch) {
-  const imageUrl = first(compact([
-    doc("meta[name='image']").attr('content'),
-    doc("meta[property='og:image']").attr('content'),
-    doc('img').attr('src'),
-  ]))
+function extractImages(doc, urlToFetch) {
+  const imageUrls = flattenDeepCheerioElements([
+    doc("meta[name='image']").attr("content"),
+    doc("meta[property='og:image']").attr("content"),
+    doc("img").map((i, imgNode) => doc(imgNode).attr("src"))
+  ])
 
-  const imageProtocol = urijs(imageUrl).protocol()
-  if(imageProtocol){
-    return imageUrl
-  }
+  return uniq(imageUrls.map(imageUrl => {
+    const imageProtocol = urijs(imageUrl).protocol()
+    if(imageProtocol){
+      return imageUrl
+    }
 
-  if(startsWith(imageUrl, '//')){
-    const urlToFetchProtocol = urijs(urlToFetch).protocol()
-    return urijs(imageUrl).protocol(urlToFetchProtocol).toString()
-  }
+    if(startsWith(imageUrl, '//')){
+      const urlToFetchProtocol = urijs(urlToFetch).protocol()
+      return urijs(imageUrl).protocol(urlToFetchProtocol).toString()
+    }
 
-  return urijs.joinPaths(urlToFetch, imageUrl).toString()
+    return urijs.joinPaths(urlToFetch, imageUrl).toString()
+  }))
 }

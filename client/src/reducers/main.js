@@ -1,3 +1,5 @@
+import {uniq, dropRight, last} from 'lodash'
+
 import * as actions from 'actions'
 
 const defaultState = {
@@ -6,7 +8,7 @@ const defaultState = {
     title: '',
     description: '',
     url: '',
-    imageUrl: '',
+    imageUrls: [],
     useUrl: false
   },
   reembeddedUrl: ''
@@ -50,6 +52,41 @@ export default function main(state = defaultState, action){
       return {
         ...state,
         reembeddedUrl
+      }
+    }
+
+    case actions.addImageUrl.TYPE: {
+      const newImageUrl = action.payload
+      const {imageUrls} = state.reembedFields
+
+      const newImageUrls = uniq([
+        newImageUrl,
+        ...imageUrls
+      ])
+
+      return {
+        ...state,
+        reembedFields: {
+          ...state.reembedFields,
+          imageUrls: newImageUrls
+        }
+      }
+    }
+
+    case actions.nextImageUrl.TYPE: {
+      const {imageUrls} = state.reembedFields
+
+      const newImageUrls = [
+        last(imageUrls),
+        ...dropRight(imageUrls)
+      ]
+
+      return {
+        ...state,
+        reembedFields: {
+          ...state.reembedFields,
+          imageUrls: newImageUrls
+        }
       }
     }
 

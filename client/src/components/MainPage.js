@@ -18,7 +18,7 @@ const enhance = compose(
     }
   }),
   withPropsOnChange( ['actions'], props => {
-    const {actions: {changeUrlToFetch, fetchUrl, updateEmbedFields, reembed}} = props
+    const {actions: {changeUrlToFetch, fetchUrl, updateEmbedFields, reembed, nextImageUrl, addImageUrl}} = props
     return {
       changeUrlToFetch: e => changeUrlToFetch(e.target.value),
       fetchUrl,
@@ -26,7 +26,8 @@ const enhance = compose(
       changeDescription: e => updateEmbedFields({ description: e.target.value }),
       changeUrl: e => updateEmbedFields({ url: e.target.value }),
       changeUseUrl: e => updateEmbedFields({ useUrl: e.target.checked }),
-      changeImageUrl: imageUrl => updateEmbedFields({ imageUrl }),
+      addImageUrl,
+      nextImageUrl,
       reembed
     }
   }),
@@ -42,7 +43,7 @@ const MainPage = enhance(({
     fetchUrl,
     title, changeTitle,
     description, changeDescription,
-    imageUrl, changeImageUrl,
+    imageUrls, addImageUrl, nextImageUrl,
     url, changeUrl,
     useUrl, changeUseUrl,
     reembeddedUrl, reembed
@@ -88,7 +89,10 @@ const MainPage = enhance(({
       <div className="input-group">
         <label>Choose an image</label>
         <div className="image-chooser-container">
-          <ImageChooser imageUrl={imageUrl} onChange={changeImageUrl}/>
+          <ImageChooser imageUrl={imageUrls[0]}
+            addImageUrl={addImageUrl}
+            nextImageUrl={nextImageUrl}
+          />
         </div>
       </div>
 

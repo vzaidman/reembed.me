@@ -8,5 +8,8 @@ export const populdateReembedFailed = makeActionCreator('POPULATE_REEMBED_FAILED
 export const changeEmbedFields = makeActionCreator('CHANGE_EMBED_FIELDS')
 export const updateEmbedFields = makeActionCreator('UPDATE_EMBED_FIELDS')
 
+export const addImageUrl = makeActionCreator('ADD_IMAGE_URL')
+export const nextImageUrl = makeActionCreator('NEXT_IMAGE_URL')
+
 export const reembed = makeAsyncActionCreator('REEMBED')
 export const changeReembeddedUrl = makeActionCreator('CHANGE_REEMBEDDED_URL')

@@ -18,22 +18,25 @@ const enhance = compose(
         //TODO: handle errors
         return
       }
-      props.onChange(uploadedImageUrl)
+      props.addImageUrl(uploadedImageUrl)
     }
   })
 )
-const ImageChooser = enhance(({imageUrl, imageUploaded}) => {
+const ImageChooser = enhance(({imageUrl, imageUploaded, nextImageUrl}) => {
   return (
     <div className="image-chooser">
       <div className="content">
         {imageUrl && <img src={imageUrl}/>}
       </div>
-      <ReactFilestack
-        apikey={fileStackApiKey}
-        buttonText="Upload an image"
-        buttonClass="upload-image-button"
-        onSuccess={imageUploaded}
-      />
+      <div className="controls">
+        <ReactFilestack
+          apikey={fileStackApiKey}
+          buttonText="Upload an image"
+          buttonClass="upload-image-button"
+          onSuccess={imageUploaded}
+        />
+        <button className="next-image-button" onClick={nextImageUrl}>Next Image</button>
+      </div>
     </div>
   )
 })
