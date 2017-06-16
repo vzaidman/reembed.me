@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+h1{
+  margin-bottom: 50px;
+}
+
 .fetch-url{
   input{
     width: 500px;
@@ -35,6 +39,10 @@
       flex: 1;
     }
   }
+}
+
+.reembed-info{
+  width: 500px;
 }
 
 .temp{
