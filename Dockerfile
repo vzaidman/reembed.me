@@ -19,10 +19,10 @@ COPY client/package.json ./
 COPY client/yarn.lock ./
 RUN yarn install
 
-WORKDIR /app
+WORKDIR /app/server
 
-COPY ./package.json ./
-COPY ./yarn.lock ./
+COPY server/package.json ./
+COPY server/yarn.lock ./
 RUN yarn install
 
 COPY ./ ./
