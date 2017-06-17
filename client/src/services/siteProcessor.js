@@ -57,6 +57,6 @@ function extractImages(doc, urlToFetch) {
       return urijs(imageUrl).protocol(urlToFetchProtocol).toString()
     }
 
-    return urijs.joinPaths(urlToFetch, imageUrl).toString()
+    return urijs(imageUrl).absoluteTo(urlToFetch).toString()
   }))
 }
