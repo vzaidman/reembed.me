@@ -22,11 +22,15 @@ const enhance = compose(
     }
   })
 )
-const ImageChooser = enhance(({imageUrl, imageUploaded, nextImageUrl}) => {
+const ImageChooser = enhance(({imageUrls, imageUploaded, nextImageUrl}) => {
+  const [mainImageUrl, ...otherImageUrls] = imageUrls
   return (
     <div className="image-chooser">
       <div className="content">
-        {imageUrl && <img src={imageUrl}/>}
+        {mainImageUrl && <img className="image-preview main" key={mainImageUrl} src={mainImageUrl}/>}
+        <div className="small-images-previews">
+          {otherImageUrls.slice(0, 4).map(imageUrl => <img className="image-preview" key={imageUrl} src={imageUrl}/>)}
+        </div>
       </div>
       <div className="controls">
         <ReactFilestack

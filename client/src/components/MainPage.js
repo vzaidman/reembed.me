@@ -86,10 +86,10 @@ const MainPage = enhance(({
         <input onChange={changeUrl} value={url} disabled={!useUrl}/>
       </div>
 
-      <div className="input-group">
+      <div className="input-group big">
         <label>Choose an image</label>
         <div className="image-chooser-container">
-          <ImageChooser imageUrl={imageUrls.length > 0 && imageUrls[0]}
+          <ImageChooser imageUrls={imageUrls}
             addImageUrl={addImageUrl}
             nextImageUrl={nextImageUrl}
           />

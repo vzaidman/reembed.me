@@ -1,4 +1,4 @@
-import {uniq, dropRight, last} from 'lodash'
+import {uniq} from 'lodash'
 
 import * as actions from 'actions'
 
@@ -71,10 +71,13 @@ export default function main(state = defaultState, action){
 
     case actions.nextImageUrl.TYPE: {
       const {imageUrls} = state.reembedFields
+      if(imageUrls.length < 2){
+        return state
+      }
 
       const newImageUrls = [
-        last(imageUrls),
-        ...dropRight(imageUrls)
+        ...(imageUrls.slice(1)),
+        imageUrls[0]
       ]
 
       return {
