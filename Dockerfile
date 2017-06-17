@@ -25,14 +25,19 @@ COPY ./package.json ./
 COPY ./yarn.lock ./
 RUN yarn install
 
+COPY ./ ./
+
 WORKDIR /app/client
-COPY ./client ./
+#COPY ./client ./
 RUN yarn run build
 
-WORKDIR /app
-RUN rm -f /app/client
+RUN rm -rf /app/client
 
-ENTRYPOINT ["node", "."]
+
+WORKDIR /app
+
+
+CMD ["node", "."]
 
 
 
