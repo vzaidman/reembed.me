@@ -25,5 +25,4 @@ html
                 h1 #{title}
                 #description
                     | #{description}
-                each imageUrl in imageUrls
-                    img(alt='image', src='#{imageUrl}' style='background-color: #999')
+                img(alt='image', src='#{imageUrls[0]}' style='background-color: #999')

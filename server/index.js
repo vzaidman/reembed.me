@@ -16,7 +16,7 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.set('view engine', 'jade')
-app.set('views', __dirname + '/public')
+app.set('views', __dirname + '/views')
 
 app.use('/', express.static(__dirname + '/public'))
 app.use('/', express.static(__dirname + '/../client-dist'))
