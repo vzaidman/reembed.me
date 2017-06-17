@@ -21,11 +21,7 @@ export default function main(state = defaultState, action){
       const urlToFetch = action.payload
       return {
         ...state,
-        urlToFetch,
-        reembedFields: {
-          ...state.reembedFields,
-          url: urlToFetch
-        }
+        urlToFetch
       }
     }
 

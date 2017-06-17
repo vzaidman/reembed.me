@@ -1,13 +1,19 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
 
 import * as actions from 'actions'
-import {getReembedFields, getUrlToFetch} from 'selectors'
+import {getReembedFields, getNormalizedUrlToFetch} from 'selectors'
 
 import {getRelevantTags} from 'services/siteProcessor'
 import {fetchWebsite, requestReembed} from 'services/api'
 
+function* updateEmbeddedUrl(){
+  const urlToFetch = yield select(getNormalizedUrlToFetch)
+  yield put(actions.updateEmbedFields({url: urlToFetch}))
+}
+
 function* populateReembedFields() {
-  const urlToFetch = yield select(getUrlToFetch)
+  const urlToFetch = yield select(getNormalizedUrlToFetch)
+
   try {
     const htmlText = yield call(fetchWebsite, urlToFetch)
 
@@ -38,6 +44,7 @@ function* reembed(){
 }
 
 function* mySaga() {
+  yield takeLatest(actions.changeUrlToFetch.TYPE, updateEmbeddedUrl)
   yield takeLatest(actions.fetchUrl.TYPE, populateReembedFields)
   yield takeLatest(actions.reembed.TYPE, reembed)
 }

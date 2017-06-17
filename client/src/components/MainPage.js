@@ -34,7 +34,7 @@ const enhance = compose(
   lifecycle({
     //TEMP
     componentDidMount(){
-      this.props.actions.changeUrlToFetch('cnn.com')
+      this.props.actions.changeUrlToFetch('welldone-software.com')
     }
   })
 )

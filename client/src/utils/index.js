@@ -1,4 +1,4 @@
-import {first, uniq, compact, startsWith, flattenDeep} from 'lodash'
+import {compact, flattenDeep} from 'lodash'
 
 export function flattenDeepCheerioElements(elements){
   return flattenDeep(
