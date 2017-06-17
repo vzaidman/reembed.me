@@ -1,0 +1,20 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: reembedme
+spec:
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        proxy_host: reembed.me
+        proxy_port: "3000"
+      labels:
+        app: reembedme
+    spec:
+      containers:
+        - name: reembedme
+          image: welldonesw/reembed.me
+          ports:
+            - containerPort: 3000
+              protocol: TCP
