@@ -46,17 +46,20 @@ function extractImages(doc, urlToFetch) {
     doc("img").map((i, imgNode) => doc(imgNode).attr("src"))
   ])
 
-  return uniq(imageUrls.map(imageUrl => {
-    const imageProtocol = urijs(imageUrl).protocol()
-    if(imageProtocol){
-      return imageUrl
-    }
+  return uniq(imageUrls
+    .map(imageUrl => imageUrl.replace('\\', '/'))
+    .map(imageUrl => {
+      const imageProtocol = urijs(imageUrl).protocol()
+      if(imageProtocol){
+        return imageUrl
+      }
 
-    if(startsWith(imageUrl, '//')){
-      const urlToFetchProtocol = urijs(urlToFetch).protocol()
-      return urijs(imageUrl).protocol(urlToFetchProtocol).toString()
-    }
+      if(startsWith(imageUrl, '//')){
+        const urlToFetchProtocol = urijs(urlToFetch).protocol()
+        return urijs(imageUrl).protocol(urlToFetchProtocol).toString()
+      }
 
-    return urijs(imageUrl).absoluteTo(urlToFetch).toString()
-  }))
+      return urijs(imageUrl).absoluteTo(urlToFetch).toString()
+    })
+  )
 }
