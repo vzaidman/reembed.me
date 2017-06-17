@@ -1,4 +1,4 @@
-import {uniq} from 'lodash'
+import {uniq, compact} from 'lodash'
 
 import * as actions from 'actions'
 
@@ -75,10 +75,10 @@ export default function main(state = defaultState, action){
         return state
       }
 
-      const newImageUrls = [
+      const newImageUrls = compact([
         ...(imageUrls.slice(1)),
         imageUrls[0]
-      ]
+      ])
 
       return {
         ...state,
