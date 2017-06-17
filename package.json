@@ -8,12 +8,7 @@
   },
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "npm run build",
-    "prebuild": "rimraf ./public/client && cd client && yarn",
-    "build": "cd client && cross-env NODE_ENV=production npm run build",
-    "start": "node index.js",
-    "push": "git push --force && git push --force heroku master"
+    "start": "nodemon -e js -- ./"
   },
   "repository": "git+https://github.com/welldone-software/reembed.me.git",
   "keywords": [
@@ -41,6 +36,7 @@
   },
   "devDependencies": {
     "cross-env": "^5.0.1",
+    "nodemon": "^1.11.0",
     "rimraf": "^2.6.1"
   }
 }

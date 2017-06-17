@@ -5,11 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const _ = require('lodash')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
-const FILESTACK_API_KEY = process.env.FILESTACK_API_KEY
-
-if(!FILESTACK_API_KEY){
-  throw new Error('No Filestack Api Key supplied.')
-}
+const FILESTACK_API_KEY = process.env.FILESTACK_API_KEY || 'A7sw4SbU4SmqGU42igRKnz'
 
 const isDevelopment = NODE_ENV === 'development'
 
@@ -32,7 +28,7 @@ const config = {
   },
   output: {
     filename: 'main.[hash].js',
-    path: __dirname + '/../public/client', //TODO: environment variable
+    path: __dirname + '/../client-dist',
   },
   resolve: {
     modules: ['./src', './node_modules'],

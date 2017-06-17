@@ -7,7 +7,7 @@ const normalizeUrl = require('normalize-url')
 
 const Datastore = require('nedb')
 
-const PORT = process.env.PORT || 80
+const PORT = process.env.PORT || 3000
 
 const db = new Datastore({ filename: __dirname + '/database.db', autoload: true })
 
@@ -18,9 +18,8 @@ app.use(bodyParser.json())
 app.set('view engine', 'jade')
 app.set('views', __dirname + '/public')
 
-app.get('/favicon.ico', function(req, res){
-  res.sendFile('favicon.ico', {root: __dirname + '/public'})
-})
+app.use('/', express.static(__dirname + '/public'))
+app.use('/', express.static(__dirname + '/client-dist'))
 
 app.get('/api/v1/fetchWebsite', function(req, res){
   const url = req.query.url
@@ -44,9 +43,6 @@ app.post('/api/v1/requestReembed', function(req, res){
   })
 })
 
-app.use('/images', express.static(__dirname + '/public/images'))
-
-app.use('/', express.static(__dirname + '/public/client'))
 
 app.get('/:id', function(req, res){
   const id = req.params.id
