@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: reembedme
-          image: welldonesw/reembed.me
+          image: welldonesw/reembed.me:latest
           ports:
             - containerPort: 3000
               protocol: TCP

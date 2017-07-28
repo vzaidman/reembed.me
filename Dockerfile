@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM node:8.1.3-alpine
 
 RUN apk update \
  && apk add curl bash binutils tar \
@@ -11,32 +11,27 @@ RUN apk update \
 RUN apk add --update git
 
 RUN mkdir -p /app/client
-RUN mkdir -p /app
-
 WORKDIR /app/client
-
 COPY client/package.json ./
 COPY client/yarn.lock ./
 RUN yarn install
 
-WORKDIR /app/server
-
+WORKDIR /app
 COPY server/package.json ./
 COPY server/yarn.lock ./
 RUN yarn install
 
-COPY ./ ./
+WORKDIR /app
+COPY server ./
 
 WORKDIR /app/client
-#COPY ./client ./
-RUN yarn run build
+COPY client ./
+RUN NODE_ENV=production BUILD_PATH="$PWD/../client-dist" yarn run build
 
+WORKDIR /
 RUN rm -rf /app/client
 
-
 WORKDIR /app
-
-
 CMD ["node", "."]
 
 

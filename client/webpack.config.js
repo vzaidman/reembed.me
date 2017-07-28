@@ -6,10 +6,11 @@ const _ = require('lodash')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const FILESTACK_API_KEY = process.env.FILESTACK_API_KEY || 'A7sw4SbU4SmqGU42igRKnz'
+const BUILD_PATH = process.env.BUILD_PATH || (__dirname + '/../client-dist')
 
 const isDevelopment = NODE_ENV === 'development'
 
-console.log(`Building in env: ${NODE_ENV}`)
+console.log(`Building in env: "${NODE_ENV}" to path: "${BUILD_PATH}"`)
 
 const API_URL = process.env.API_URL
 const PORT = process.env.PORT || 5000
@@ -28,7 +29,7 @@ const config = {
   },
   output: {
     filename: 'main.[hash].js',
-    path: __dirname + '/../client-dist',
+    path: BUILD_PATH,
   },
   resolve: {
     modules: ['./src', './node_modules'],

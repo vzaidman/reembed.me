@@ -19,7 +19,7 @@ app.set('view engine', 'jade')
 app.set('views', __dirname + '/views')
 
 app.use('/', express.static(__dirname + '/public'))
-app.use('/', express.static(__dirname + '/../client-dist'))
+app.use('/', express.static(__dirname + '/client-dist'))
 
 app.get('/api/v1/fetchWebsite', function(req, res){
   const url = req.query.url
