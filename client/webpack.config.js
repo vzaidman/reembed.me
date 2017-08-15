@@ -72,7 +72,8 @@ const config = {
         'API_URL': JSON.stringify(API_URL),
         'FILESTACK_API_KEY': JSON.stringify(FILESTACK_API_KEY)
       }
-    })
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin()
   ]
 }
 
